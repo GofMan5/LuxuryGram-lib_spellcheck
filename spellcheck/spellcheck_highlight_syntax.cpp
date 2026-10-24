@@ -216,6 +216,8 @@ struct CacheResult {
 
 	const auto state = S.get();
 	XXH64_reset(state, 0);
+	const auto textSize = uint64(view.size());
+	XXH64_update(state, &textSize, sizeof(textSize));
 	XXH64_update(state, view.data(), view.size() * sizeof(ushort));
 	XXH64_update(state, language.data(), language.size() * sizeof(ushort));
 	const auto hash = XXH64_digest(state);
